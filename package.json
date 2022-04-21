@@ -1,0 +1,22 @@
+{
+  "name": "nuxtbnb",
+  "version": "1.0.0",
+  "description": "realizing project NuxtBnb",
+  "private": true,
+  "dependencies": {
+    "nuxt": "^2.15.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start"
+  },
+  "keywords": [
+    "mastering-nuxt",
+    "nuxt",
+    "nuxt-bnb"
+  ],
+  "author": "Ovakimyan Tigran <tigr.kman@gmail.com>",
+  "license": "ISC"
+}
