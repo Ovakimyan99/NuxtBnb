@@ -6,7 +6,9 @@
   "dependencies": {
     "nuxt": "^2.15.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@nuxt/types": "^2.15.8"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
