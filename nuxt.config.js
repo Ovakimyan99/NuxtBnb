@@ -1,4 +1,15 @@
 export default {
-  title: 'my title',
-  components: true
+  components: true,
+  head: {
+    titleTemplate: 'Mastering Nuxt: %s',
+    htmlAttrs: {
+      lang: 'en'
+    },
+    bodyAttrs: {
+      class: ['body-styles']
+    },
+    meta: [
+      { charset: 'utf-8' }
+    ]
+  }
 }
