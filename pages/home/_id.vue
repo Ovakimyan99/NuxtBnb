@@ -18,8 +18,16 @@
         :alt="reviewer.name"
       ><br>
       {{ reviewer.name }}<br>
-      {{ comment }}<br>
-      {{ date }}<br>
+      <short-text :target="60" :text="comment" />
+      {{ formatDate(date) }}<br><br>
+    </div>
+    <hr>
+
+    <div>
+      <img :src="user.image" :alt="user.name"><br>
+      joined: {{ formatDate(user.joined) }}<br>
+      <b>review Count: </b>{{ user.reviewCount }}<br>
+      <b>description: </b>{{ user.description }}
     </div>
   </div>
 </template>
@@ -31,16 +39,27 @@ export default {
       title: this.home.title
     }
   },
-  async asyncData({ params, $dataApi, error }) {
-    const homeResponse = await $dataApi.getHome(params.id)
-    if (!homeResponse.ok) error({ statusCode: homeResponse.status, message: homeResponse.statusText })
+  async asyncData({ params, $dataApi }) {
+    let response = Promise.all([
+      $dataApi.getHome(params.id),
+      $dataApi.getReviewsByHomeId(params.id),
+      $dataApi.getUsersByHomeId(params.id)
+    ])
+      .catch(error => {
+        error({ statusCode: error.status, message: error.statusText })
+      })
 
-    const reviewResponse = await $dataApi.getReviewsByHomeId(params.id)
-    if (!reviewResponse.ok) error({ statusCode: reviewResponse.status, message: reviewResponse.statusText })
+    response = await response
 
     return {
-      home: homeResponse.json,
-      reviews: reviewResponse.json.hits
+      home: response[0].json,
+      reviews: response[1].json.hits,
+      user: response[2].json.hits[0]
+    }
+  },
+  methods: {
+    formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
     }
   },
   mounted() {
